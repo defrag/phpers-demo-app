@@ -17,8 +17,8 @@
 
         <!-- bin, cache and logs -->
         <exclude name="bin/**" />
-        <exclude name="app/cache/**" />
-        <exclude name="app/logs/**" />
+        <exclude name="var/cache/**" />
+        <exclude name="var/logs/**" />
 
         <!-- root files -->
         <exclude name=".git/" />
@@ -72,6 +72,7 @@
 
     <!-- Targets for building and deploying the application -->
     <target name="configure" if="cd.environment">        
+        <property file="build.ci.properties" />
         <echo>Downloading composer.</echo>
         <exec executable="/bin/bash" failonerror="false" dir="${basedir}">
             <arg value="-c" />
