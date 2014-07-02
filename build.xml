@@ -125,11 +125,9 @@
 
      <target name="phpdoc" description="Builds PHPDoc documentation">
         <echo>Builds PHPDoc documentation.</echo>
-        <mkdir dir="${basedir}/doc" />
         <mkdir dir="${basedir}/doc/phpdoc" />
-        <exec executable="/bin/bash">
-            <arg value="-c" />
-            <arg line="${basedir}/bin/phpdoc -d ${basedir}/src --ignore ${basedir}/var/cache/* -t ${basedir}/doc/phpdoc" />
+        <exec executable="php">
+            <arg line="-d error_log=/dev/null ${basedir}/bin/phpdoc -d ${basedir}/src --filename ${basedir}/app/*.php --ignore ${basedir}/app/cache/* -t ${basedir}/doc/phpdoc" />
         </exec>
     </target>
 
