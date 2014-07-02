@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b75427cf7d4d4d84d91f3148a3483424",
+    "hash": "d1580a84569d09a024b91ff3b839d4d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1899,7 +1899,7 @@
         },
         {
             "name": "phpdocumentor/phpdocumentor",
-            "version": "dev-master",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/phpDocumentor2.git",
@@ -3739,9 +3739,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "phpdocumentor/phpdocumentor": 20
-    },
+    "stability-flags": [
+
+    ],
     "platform": {
         "php": ">=5.3.3"
     },
