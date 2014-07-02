@@ -123,5 +123,15 @@
         </exec>
     </target>
 
+     <target name="phpdoc" description="Builds PHPDoc documentation">
+        <echo>Builds PHPDoc documentation.</echo>
+        <mkdir dir="${basedir}/doc" />
+        <mkdir dir="${basedir}/doc/phpdoc" />
+        <exec executable="/bin/bash">
+            <arg value="-c" />
+            <arg line="${basedir}/bin/phpdoc -d ${basedir}/src --ignore ${basedir}/var/cache/* -t ${basedir}/doc/phpdoc" />
+        </exec>
+    </target>
+
 
 </project>
