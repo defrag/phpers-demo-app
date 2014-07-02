@@ -64,7 +64,7 @@
         <echo>Dummy default target.</echo>
     </target>
 
-    <target name="build-unit" depends="configure">
+    <target name="build-unit">
         <property file="build.ci.properties" />
         <antcall target="phpunit" />        
         <echo>Unit test build pass.</echo>        
