@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="phpers-demo-app" default="dummy">
+    <patternset id="app-contents">
+        <!-- main project folders and files -->
+        <include name="app/**" />
+        <include name="src/**" />
+        <include name="components/**" /><!-- this should only go to environments that make use of dev mode-->
+        <include name="vendor/**" />
+        <include name="web/**" />
+        <include name="**/.htaccess" /><!-- this should only go to environments that make use of dev mode-->
+        <include name="vendor/**/.htaccess" /><!-- this should only go to environments that make use of dev mode-->
+
+        <!-- application sub-folders and files -->
+        <exclude name="app/phpunit.xml*" />
+        <exclude name="app/config.parameters.yml" />
+
+        <!-- bin, cache and logs -->
+        <exclude name="bin/**" />
+        <exclude name="app/cache/**" />
+        <exclude name="app/logs/**" />
+
+        <!-- root files -->
+        <exclude name=".git/" />
+        <exclude name=".gitignore" />
+        <exclude name="build.*" />
+        <exclude name="deps*" />
+        <exclude name="LICENSE" />
+        <exclude name="README*" />
+
+        <!-- vendor sub-folders -->
+        <exclude name="vendor/*/**/bin/**" />
+        <exclude name="vendor/*/**/doc/**" />
+        <exclude name="vendor/*/**/docs/**" />
+        <exclude name="vendor/*/**/examples/**" />
+        <exclude name="vendor/*/**/notes/**" />
+        <exclude name="vendor/*/**/test/**" />
+        <exclude name="vendor/*/**/test-suite/**" />
+        <exclude name="vendor/*/**/tests/**" />
+        <exclude name="vendor/*/**/Tests/**" />
+        <exclude name="vendor/*/**/tools/**" />
+
+        <!-- various files -->
+        <exclude name="vendor/**/AUTHORS" />
+        <exclude name="vendor/**/build.*" />
+        <exclude name="vendor/**/CHANGELOG*" />
+        <exclude name="vendor/**/CHANGES*" />
+        <exclude name="vendor/**/changelog*" />
+        <exclude name="vendor/**/composer.json" />
+        <exclude name="vendor/**/LICENSE" />
+        <exclude name="vendor/**/package.*" />
+        <exclude name="vendor/**/phpunit.*" />
+        <exclude name="vendor/**/README*" />
+        <exclude name="vendor/**/travis.yml" />
+        <exclude name="vendor/**/UPDATE*" />
+        <exclude name="vendor/**/UPGRADE*" />
+        <exclude name="vendor/**/deps.lock" />
+        <exclude name="vendor/**/deps" />
+        <exclude name="vendor/**/.git/" />
+        <exclude name="vendor/**/.gitignore" />
+    </patternset>
+
+    <target name="dummy">
+        <echo>Dummy default target.</echo>
+    </target>
+
+    <target name="build-unit" depends="configure">
+        <property file="build.ci.properties" />
+        <antcall target="phpunit" />        
+        <echo>Unit test build pass.</echo>        
+    </target>
+
+    <!-- Targets for building and deploying the application -->
+    <target name="configure" if="cd.environment">        
+        <echo>Downloading composer.</echo>
+        <exec executable="/bin/bash" failonerror="false" dir="${basedir}">
+            <arg value="-c" />
+            <arg value="curl -sS http://getcomposer.org/installer | php" />
+        </exec>
+
+        <echo>Downloading dependencies using composer.</echo>
+        <exec executable="php" failonerror="true" dir=".">
+            <arg value="${basedir}/composer.phar" />
+            <arg value="install" />
+            <arg value="--no-interaction" />
+            <arg value="--prefer-dist" />
+            <arg value="--optimize-autoloader" />
+        </exec>
+
+        <echo>Dumping prod assets.</echo>
+        <exec executable="/bin/bash" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/app/console assetic:dump --env=prod --no-debug" />
+        </exec>
+
+        <echo>Ensuring empty cache and logs directories.</echo>
+        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/app/cache" />
+        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/app/logs" />
+        <mkdir dir="${basedir}/app/cache" />
+        <mkdir dir="${basedir}/app/logs" />
+        
+    </target>
+
+    <target name="phpunit" description="Run tests with PHPSpec" depends="configure">
+        <exec executable="/bin/bash" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/bin/phpunit" />
+        </exec>
+    </target>
+
+    <target name="phpspec" description="Run tests with PHPSpec" depends="configure">
+        <exec executable="/bin/bash" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/bin/phpspec run" />
+        </exec>
+    </target>
+
+    <target name="behat" description="Run scenarios with behat">
+        <echo>Running behat tests.</echo>
+        <exec executable="/bin/bash" failonerror="true">
+            <arg value="-c" />
+            <arg value="${basedir}/bin/behat --format progress" />
+        </exec>
+    </target>
+
+
+</project>
