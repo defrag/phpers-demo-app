@@ -71,8 +71,7 @@
     </target>
 
     <!-- Targets for building and deploying the application -->
-    <target name="configure" if="cd.environment">        
-        <property file="build.ci.properties" />
+    <target name="configure">                
         <echo>Downloading composer.</echo>
         <exec executable="/bin/bash" failonerror="false" dir="${basedir}">
             <arg value="-c" />
