@@ -101,14 +101,14 @@
         
     </target>
 
-    <target name="phpunit" description="Run tests with PHPSpec" depends="configure">
+    <target name="phpunit" description="Run tests with PHPSpec">
         <exec executable="/bin/bash" failonerror="true">
             <arg value="-c" />
             <arg value="${basedir}/bin/phpunit" />
         </exec>
     </target>
 
-    <target name="phpspec" description="Run tests with PHPSpec" depends="configure">
+    <target name="phpspec" description="Run tests with PHPSpec">
         <exec executable="/bin/bash" failonerror="true">
             <arg value="-c" />
             <arg value="${basedir}/bin/phpspec run" />
