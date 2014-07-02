@@ -90,14 +90,14 @@
         <echo>Dumping prod assets.</echo>
         <exec executable="/bin/bash" failonerror="true">
             <arg value="-c" />
-            <arg value="${basedir}/app/console assetic:dump --env=prod --no-debug" />
+            <arg value="${basedir}/bin/console assetic:dump --env=prod --no-debug" />
         </exec>
 
         <echo>Ensuring empty cache and logs directories.</echo>
-        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/app/cache" />
-        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/app/logs" />
-        <mkdir dir="${basedir}/app/cache" />
-        <mkdir dir="${basedir}/app/logs" />
+        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/var/cache" />
+        <delete includeemptydirs="true" verbose="false" failonerror="true" dir="${basedir}/var/logs" />
+        <mkdir dir="${basedir}/var/cache" />
+        <mkdir dir="${basedir}/var/logs" />
         
     </target>
 
