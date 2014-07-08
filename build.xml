@@ -132,4 +132,24 @@
     </target>
 
 
+    <target name="create-artifact">
+        <property file="build.ci.properties" />
+        <property environment="env"/>
+        <echo>Creating artifact of the application.</echo>
+        
+        <property name="tc.artifact.name" value="demo-${env.BUILD_NUMBER}.tgz" />
+
+        <delete dir="${env.dir.tmp}" includeemptydirs="true" verbose="false" quiet="true" />
+        <mkdir dir="${env.dir.tmp}" />
+
+        <copy todir="${env.dir.tmp}" overwrite="true" includeemptydirs="true" failonerror="true" verbose="false">
+            <fileset dir="${basedir}">
+                <patternset refid="app-contents" />
+            </fileset>
+        </copy>
+
+        <tar basedir="${env.dir.tmp}" destfile="${env.WORKSPACE}/artifacts/${tc.artifact.name}" compression="gzip" longfile="gnu" />
+        <echo>Artifact created.</echo>
+    </target>
+
 </project>
