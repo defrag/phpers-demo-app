@@ -16,7 +16,6 @@
         <exclude name="app/config.parameters.yml" />
 
         <!-- bin, cache and logs -->
-        <exclude name="bin/**" />
         <exclude name="var/cache/**" />
         <exclude name="var/logs/**" />
 
