@@ -11,7 +11,7 @@
         <include name="web/**" />
         <include name="**/.htaccess" /><!-- this should only go to environments that make use of dev mode-->
         <include name="vendor/**/.htaccess" /><!-- this should only go to environments that make use of dev mode-->
-        <exclude name="var/cache/bootstrap.php.cache" />
+        <include name="var/bootstrap.php.cache" />
         <!-- application sub-folders and files -->
         <exclude name="app/phpunit.xml*" />
         <exclude name="app/config.parameters.yml" />
