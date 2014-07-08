@@ -4,6 +4,7 @@
     <patternset id="app-contents">
         <!-- main project folders and files -->
         <include name="app/**" />
+        <include name="bin/**" />
         <include name="src/**" />
         <include name="components/**" /><!-- this should only go to environments that make use of dev mode-->
         <include name="vendor/**" />
