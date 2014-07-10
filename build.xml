@@ -70,6 +70,12 @@
         <echo>Unit test build pass.</echo>        
     </target>
 
+    <target name="build-acceptance">
+        <property file="build.ci.properties" />
+        <antcall target="behat" />        
+        <echo>Acceptance test build pass.</echo>        
+    </target>
+
     <!-- Targets for building and deploying the application -->
     <target name="configure">                
         <echo>Downloading composer.</echo>
